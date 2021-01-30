@@ -12,7 +12,7 @@ workflow for managing database code such as functions and views.
 
 ## Installation
 
-    go get -u github.com/jackc/tern
+    go get -u github.com/shasderias/tern
 
 ## Creating a Tern Project
 
@@ -284,7 +284,7 @@ Tern will automatically use an SSH agent if available.
 
 ## Embedding Tern
 
-All the actual functionality of tern is in the github.com/jackc/tern/migrate
+All the actual functionality of tern is in the github.com/shasderias/tern/migrate
 library. If you need to embed migrations into your own application this
 library can help.
 
