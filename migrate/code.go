@@ -11,7 +11,6 @@ import (
 
 	"github.com/Masterminds/sprig"
 	"github.com/jackc/pgconn"
-	"github.com/jackc/pgx/v4"
 )
 
 type CodePackage struct {
@@ -96,7 +95,7 @@ func LoadCodePackage(path string) (*CodePackage, error) {
 	return LoadCodePackageEx(path, defaultMigratorFS{})
 }
 
-func InstallCodePackage(ctx context.Context, conn *pgx.Conn, mergeData map[string]interface{}, codePackage *CodePackage) (err error) {
+func InstallCodePackage(ctx context.Context, conn Querier, mergeData map[string]interface{}, codePackage *CodePackage) (err error) {
 	sql, err := codePackage.Eval(mergeData)
 	if err != nil {
 		return err
@@ -105,7 +104,7 @@ func InstallCodePackage(ctx context.Context, conn *pgx.Conn, mergeData map[strin
 	return LockExecTx(ctx, conn, sql)
 }
 
-func LockExecTx(ctx context.Context, conn *pgx.Conn, sql string) (err error) {
+func LockExecTx(ctx context.Context, conn Querier, sql string) (err error) {
 	err = acquireAdvisoryLock(ctx, conn)
 	if err != nil {
 		return err
